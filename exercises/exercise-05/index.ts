@@ -48,6 +48,8 @@ interface Admin {
 }
 
 type Person = User | Admin;
+type partialUser = Partial<User>;
+type partialAdmin = Partial<Admin>;
 
 const persons: Person[] = [
     { type: 'user', name: 'Max Mustermann', age: 25, occupation: 'Chimney sweep' },
@@ -64,11 +66,17 @@ function logPerson(person: Person) {
     );
 }
 
-function filterPersons(persons: Person[], personType: string, criteria: unknown): unknown[] {
+function getObjectKeys<T>(criteria: T): (keyof T)[] {
+    return Object.keys(criteria) as (keyof T)[];
+}
+
+function filterPersons(persons: Person[], personType: "user", criteria: partialUser): User[]
+function filterPersons(persons: Person[], personType: "admin", criteria: partialAdmin): Admin[]
+function filterPersons(persons: Person[], personType: string, criteria: partialUser | partialAdmin) {
     return persons
         .filter((person) => person.type === personType)
         .filter((person) => {
-            let criteriaKeys = Object.keys(criteria) as (keyof Person)[];
+            let criteriaKeys = getObjectKeys(criteria);
             return criteriaKeys.every((fieldName) => {
                 return person[fieldName] === criteria[fieldName];
             });
