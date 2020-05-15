@@ -1,5 +1,11 @@
 {
   "files.exclude": {
     "**/node_modules": false,
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#342d3e",
+    "activityBar.foreground": "#FDFCFF",
+    "titleBar.activeBackground": "#342d3e",
+    "titleBar.activeForeground": "#FDFCFF"
   }
 }
