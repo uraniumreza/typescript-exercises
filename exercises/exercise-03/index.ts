@@ -48,12 +48,12 @@ const persons: Person[] = [
     { type: 'admin', name: 'Bruce Willis', age: 64, role: 'World saver' }
 ];
 
-function isAdmin(person: Person) {
-    return person.type === 'admin';
+function isAdmin(person: Person): person is Admin {
+    return (person as Admin).type === 'admin';
 }
 
-function isUser(person: Person) {
-    return person.type === 'user';
+function isUser(person: Person): person is User {
+    return (person as User).type === 'user';
 }
 
 function logPerson(person: Person) {
